@@ -9,6 +9,7 @@ document.querySelector('#app').innerHTML = `
   </header>
 
   <main class="hero">
+
     <h2>Ubah Video Panjang Menjadi Konten Viral</h2>
 
     <p>
@@ -25,11 +26,11 @@ document.querySelector('#app').innerHTML = `
 
     <div class="buttons">
       <button class="primary" id="uploadBtn">
-        Upload Video
+        📤 Upload Video
       </button>
 
       <button class="secondary" id="analyzeBtn">
-        Analisis AI
+        🤖 Analisis AI
       </button>
     </div>
 
@@ -58,6 +59,30 @@ document.querySelector('#app').innerHTML = `
         </progress>
       </div>
 
+      <div id="resultBox" style="display:none;margin-top:25px;text-align:left;">
+
+        <h3>🎬 Hasil Analisis</h3>
+
+        <div class="clip">
+          <b>Clip 1</b><br>
+          ⏱️ 00:00:15 - 00:00:45<br>
+          ⭐⭐⭐⭐⭐
+        </div>
+
+        <div class="clip">
+          <b>Clip 2</b><br>
+          ⏱️ 00:01:20 - 00:01:50<br>
+          ⭐⭐⭐⭐☆
+        </div>
+
+        <div class="clip">
+          <b>Clip 3</b><br>
+          ⏱️ 00:03:05 - 00:03:40<br>
+          ⭐⭐⭐⭐⭐
+        </div>
+
+      </div>
+
     </div>
 
   </main>
@@ -73,50 +98,62 @@ const preview = document.getElementById("preview")
 const progressBox = document.getElementById("progressBox")
 const progressBar = document.getElementById("progressBar")
 const progressText = document.getElementById("progressText")
+const resultBox = document.getElementById("resultBox")
 
 uploadBtn.onclick = () => {
   videoInput.click()
 }
 
 videoInput.onchange = () => {
-  if (videoInput.files.length > 0) {
-    const file = videoInput.files[0]
 
-    status.innerHTML =
-      "🎥 Video dipilih:<br><b>" + file.name + "</b>"
+  if(videoInput.files.length>0){
 
-    preview.src = URL.createObjectURL(file)
-    preview.style.display = "block"
+    const file=videoInput.files[0]
 
-    progressBox.style.display = "none"
-    progressBar.value = 0
-    progressText.innerHTML = "🤖 AI sedang menganalisis..."
+    status.innerHTML="🎥 Video dipilih:<br><b>"+file.name+"</b>"
+
+    preview.src=URL.createObjectURL(file)
+    preview.style.display="block"
+
+    progressBox.style.display="none"
+    resultBox.style.display="none"
+
+    progressBar.value=0
+    progressText.innerHTML="🤖 AI sedang menganalisis..."
+
   }
+
 }
 
-analyzeBtn.onclick = () => {
+analyzeBtn.onclick=()=>{
 
-  if (videoInput.files.length === 0) {
+  if(videoInput.files.length===0){
     alert("Silakan pilih video terlebih dahulu.")
     return
   }
 
-  progressBox.style.display = "block"
+  progressBox.style.display="block"
 
-  let value = 0
+  let value=0
 
-  const timer = setInterval(() => {
+  const timer=setInterval(()=>{
 
-    value += 5
+    value+=5
 
-    progressBar.value = value
-    progressText.innerHTML = "🤖 AI Menganalisis... " + value + "%"
+    progressBar.value=value
 
-    if (value >= 100) {
+    progressText.innerHTML="🤖 AI Menganalisis... "+value+"%"
+
+    if(value>=100){
+
       clearInterval(timer)
-      progressText.innerHTML = "✅ Analisis selesai."
+
+      progressText.innerHTML="✅ Analisis selesai."
+
+      resultBox.style.display="block"
+
     }
 
-  }, 150)
+  },150)
 
 }
