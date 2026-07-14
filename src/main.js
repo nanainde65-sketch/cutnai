@@ -9,7 +9,6 @@ document.querySelector('#app').innerHTML = `
   </header>
 
   <main class="hero">
-
     <h2>Ubah Video Panjang Menjadi Konten Viral</h2>
 
     <p>
@@ -17,8 +16,15 @@ document.querySelector('#app').innerHTML = `
       lalu ekspor otomatis ke TikTok, Reels, dan Shorts.
     </p>
 
+    <input
+      type="file"
+      id="videoInput"
+      accept="video/*"
+      hidden
+    >
+
     <div class="buttons">
-      <button class="primary">
+      <button class="primary" id="uploadBtn">
         Upload Video
       </button>
 
@@ -29,11 +35,29 @@ document.querySelector('#app').innerHTML = `
 
     <div class="card">
       <h3>Status</h3>
-      <p>✅ Website berhasil berjalan.</p>
-      <p>🚀 Siap untuk pengembangan fitur AI.</p>
+      <p id="status">
+        Belum ada video dipilih.
+      </p>
     </div>
 
   </main>
 
 </div>
 `
+
+const uploadBtn = document.getElementById("uploadBtn")
+const videoInput = document.getElementById("videoInput")
+const status = document.getElementById("status")
+
+uploadBtn.onclick = () => {
+  videoInput.click()
+}
+
+videoInput.onchange = () => {
+  if (videoInput.files.length > 0) {
+    status.innerHTML =
+      "🎥 Video dipilih:<br><b>" +
+      videoInput.files[0].name +
+      "</b>"
+  }
+}
