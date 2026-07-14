@@ -33,12 +33,19 @@ document.querySelector('#app').innerHTML = `
       </button>
     </div>
 
-    <div class="card">
-      <h3>Status</h3>
-      <p id="status">
-        Belum ada video dipilih.
-      </p>
-    </div>
+   <div class="card">
+  <h3>Status</h3>
+
+  <p id="status">
+    Belum ada video dipilih.
+  </p>
+
+  <video
+    id="preview"
+    controls
+    style="display:none;width:100%;margin-top:20px;border-radius:12px;">
+  </video>
+</div>
 
   </main>
 
@@ -53,11 +60,19 @@ uploadBtn.onclick = () => {
   videoInput.click()
 }
 
+const preview = document.getElementById("preview")
+
 videoInput.onchange = () => {
   if (videoInput.files.length > 0) {
+
+    const file = videoInput.files[0]
+
     status.innerHTML =
       "🎥 Video dipilih:<br><b>" +
-      videoInput.files[0].name +
+      file.name +
       "</b>"
+
+    preview.src = URL.createObjectURL(file)
+    preview.style.display = "block"
   }
 }
